@@ -58,7 +58,7 @@ class Transpose_block(nn.Module):
                  channel_in,
                  channel_out,
                  kernel_size=3,
-                 transpose_kernel_size=3, # kernel一定要是奇数
+                 transpose_kernel_size=4, # kernel一定要是奇数
                  upsample_rate=2,
                  use_batchnorm=False,
                  skipChannel=0,
@@ -66,13 +66,13 @@ class Transpose_block(nn.Module):
                  ):
         super().__init__()
         Conv, BatchNorm, maxpool, ConvTranspose = getOperation(dimension=dimension)
-        self.transposeConv = ConvTranspose(channel_in, channel_out, kernel_size=transpose_kernel_size, stride=upsample_rate, bias=not(use_batchnorm), padding=transpose_kernel_size-1)
+        self.transposeConv = ConvTranspose(channel_in, channel_out, kernel_size=transpose_kernel_size, stride=upsample_rate, bias=not(use_batchnorm), padding=1)
         self.use_batchnorm = use_batchnorm
         if use_batchnorm:
             self.bn = BatchNorm(channel_out)
         self.skipChannel = skipChannel
         channel_in += skipChannel
-        self.layer = ConvRelu(channel_out, channel_out, kernel_size, use_batchnorm=use_batchnorm, dimension=dimension)
+        self.layer = ConvRelu(channel_out+skipChannel, channel_out, kernel_size, use_batchnorm=use_batchnorm, dimension=dimension)
 
     def forward(self, x, skipFeature=None):
 
@@ -83,6 +83,6 @@ class Transpose_block(nn.Module):
         if self.skipChannel != 0:
             if skipFeature is None:
                 raise RuntimeError("should input a skip feature")
-            x = torch.cat([x, self.skip], dim=1)
+            x = torch.cat([x, skipFeature], dim=1)
         x = self.layer(x)
         return x
