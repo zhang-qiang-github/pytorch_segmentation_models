@@ -149,12 +149,12 @@ class ResNet(nn.Module):
         self.bn1 = norm_layer(self.inplanes)
         self.relu = nn.ReLU(inplace=True)
         self.maxpool = maxpool(kernel_size=3, stride=2, padding=1)
-        self.layer1 = self._make_layer(block, 64, layers[0], dimension=dimension)
-        self.layer2 = self._make_layer(block, 128, layers[1], stride=2,
+        self.layer1 = self._make_layer(block, basefilter, layers[0], dimension=dimension)
+        self.layer2 = self._make_layer(block, basefilter*2, layers[1], stride=2,
                                        dilate=replace_stride_with_dilation[0], dimension=dimension)
-        self.layer3 = self._make_layer(block, 256, layers[2], stride=2,
+        self.layer3 = self._make_layer(block, basefilter*4, layers[2], stride=2,
                                        dilate=replace_stride_with_dilation[1], dimension=dimension)
-        self.layer4 = self._make_layer(block, 512, layers[3], stride=2,
+        self.layer4 = self._make_layer(block, basefilter*8, layers[3], stride=2,
                                        dilate=replace_stride_with_dilation[2], dimension=dimension)
         if dimension == 2:
             self.avgpool = nn.AdaptiveAvgPool2d((1, 1))
