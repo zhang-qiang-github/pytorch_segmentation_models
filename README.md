@@ -4,7 +4,7 @@ using pytorch to implement different segmewntation models, including both 2D and
 There are lots of public pytorch based segmentation models, but they are designed for 2D image. For medicine image, it is usually 3D. Thus, I want to implement pytorch based 3D segmentation models.
 
 ***
-##UNET
+## UNET
 I refer to a excellent segmentation [code](https://github.com/MrGiovanni/UNetPlusPlus/tree/master/keras/segmentation_models), and implement myself 3D segmentation models.
 
 
@@ -31,7 +31,7 @@ Currently, **only** resnet/vgg backbone is implement.
 
 ***
 
-##High resolution segmentation
+## High resolution segmentation
 
 This module is modified according to the [HRNET-Semantic-Segmentation](https://github.com/HRNet/HRNet-Semantic-Segmentation/tree/master). 
 

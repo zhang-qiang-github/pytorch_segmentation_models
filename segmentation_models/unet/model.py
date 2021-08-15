@@ -5,8 +5,8 @@ from ..backbones import get_backbone
 from ..utils import getOperation, getChannel
 from .blocks import Transpose_block, Upsample_block
 DEFAULT_SKIP_CONNECTIONS = {
-    'vgg16':            ('29', '22', '15', '8', '3'),
-    'vgg19':            ('35', '26', '17', '8', '3'),
+    'vgg16':            ('30', '23', '16', '9', '4'),
+    'vgg19':            ('36', '27', '18', '9', '4'),
     'resnet18':         ('layer4', 'layer3', 'layer2', 'layer1', 'conv1'), # check 'bn_data'
     'resnet34':         ('layer4', 'layer3', 'layer2', 'layer1', 'conv1'),
     'resnet50':         ('layer4', 'layer3', 'layer2', 'layer1', 'conv1'),
